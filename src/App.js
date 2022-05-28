@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core';
 
 import './App.css';
 
-import Header from './components/Header';
+import Header from './components/Header/Header';
 import CoinPage from './pages/CoinPage';
 import Homepage from './pages/Homepage';
 

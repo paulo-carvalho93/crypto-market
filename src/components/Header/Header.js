@@ -11,12 +11,12 @@ import {
   ThemeProvider,
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import { CryptoState } from '../CryptoContext';
+import { CryptoState } from '../../CryptoContext';
 
 const useStyles = makeStyles(() => ({
   title: {
     flex: 1,
-    color: "#8257e5",
+    color: "#fff",
     fontFamily: "Roboto",
     fontWeight: "bold",
     cursor: "pointer",
@@ -71,4 +71,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default Header;
