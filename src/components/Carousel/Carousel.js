@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { CryptoState } from '../../CryptoContext';
+import { useCryptoContext } from '../../CryptoContext';
 
 import { makeStyles } from '@material-ui/core';
 import AliceCarousel from 'react-alice-carousel';
@@ -34,7 +35,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Carousel = () => {
-  const { currency, symbol } = CryptoState();
+  const { currency, symbol } = useCryptoContext();
   const [trending, setTrending] = useState([]);
   const classes = useStyles();
 
@@ -74,7 +75,7 @@ const Carousel = () => {
           &nbsp;
           <span 
             style={{
-              color: profit > 0 ? "rgb(14, 203, 129)" : "red",
+              color: profit > 0 ? "#0ecb81" : "red",
               fontWeight: 700,
             }}
           >
