@@ -19,6 +19,7 @@ import { CoinList } from '../../config/api';
 import { useCryptoContext } from '../../CryptoContext';
 import { useHistory } from 'react-router-dom';
 import { numberWithCommas } from '../../utils/numberWithCommas';
+import { Pagination } from '@material-ui/lab';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles(() => ({
   },
   title: {
     fontFamily: "Roboto",
-    fontWeight: 700,
+    fontWeight: "bold",
     color: "#0052ff",
     margin: 18,
   },
@@ -38,11 +39,11 @@ const useStyles = makeStyles(() => ({
     backgroundColor: "#0052ff",
   },
   tableHead: {
-    backgroudColor: "#0052ff",
+    backgroundColor: "#f1f4f7",
   },
   tableCell: {
     fontFamily: "Roboto",
-    fontWeight: "700",
+    fontWeight: "bold",
     color: "#0052ff"
   },
   tableRowCoin: {
@@ -60,7 +61,18 @@ const useStyles = makeStyles(() => ({
   tableCellCoinImg: {
     height: 50,
     marginBottom: 10,
-  }
+  },
+  pagination: {
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
+    padding: 20,
+  },
+  paginationUl: {
+    "& .MuiPaginationItem-root": {
+      color: "black",
+    },
+  },
 }));
 
 const CoinsTable = () => {
@@ -68,9 +80,10 @@ const CoinsTable = () => {
   const history = useHistory();
   const { currency, symbol } = useCryptoContext();
 
-  const [search, setSearch] = useState(false);
-  const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [coins, setCoins] = useState([]);
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
 
   const fetchCoins = async () => {
     setLoading(true);
@@ -114,7 +127,7 @@ const CoinsTable = () => {
           ) : (
             <Table aria-label="simple table">
               <TableHead className={classes.tableHead}>
-                <TableRow className={classes.tableHeadTitle}>
+                <TableRow>
                   {["Coin", "Price", "24h Change", "Market Cap"].map((head) => (
                     <TableCell
                       className={classes.tableCell}
@@ -127,7 +140,9 @@ const CoinsTable = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                  {handleSearch().map((row) => {
+                  {handleSearch()
+                  .slice((page - 1) * 10, (page - 1) * 10 + 10)
+                  .map((row) => {
                     const profit = row.price_change_percentage_24h > 0;
 
                     return (
@@ -173,13 +188,22 @@ const CoinsTable = () => {
                           M
                         </TableCell>
                       </TableRow>
-                    )
+                    );
                   })}
               </TableBody>
             </Table>
           )
         }
       </TableContainer>
+      <Pagination
+        className={classes.pagination}
+        classes={{ ul: classes.paginationUl }}
+        count={(handleSearch()?.length / 10).toFixed(0)}
+        onChange={(_, value) => {
+          setPage(value);
+          window.scroll(0, 450);
+        }}
+      />
     </Container>
   )
 }
