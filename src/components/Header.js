@@ -11,6 +11,7 @@ import {
   ThemeProvider,
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import { CryptoState } from '../CryptoContext';
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -40,6 +41,8 @@ const Header = () => {
     },
   });
 
+  const { currency, setCurrency } = CryptoState();
+
   return (
     <ThemeProvider theme={darkTheme}>
       <AppBar color='transparent' position='static'>
@@ -52,7 +55,12 @@ const Header = () => {
             >
               Crypto Market
             </Typography>
-            <Select variant="outlined" className={classes.selectCurrency}>
+            <Select 
+              variant="outlined" 
+              className={classes.selectCurrency}
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value)}
+            >
               <MenuItem value="USD">USD</MenuItem>
               <MenuItem value="BRL">BRL</MenuItem>
             </Select>
