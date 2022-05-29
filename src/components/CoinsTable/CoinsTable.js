@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
 import { 
   Container, 
   makeStyles, 
@@ -123,7 +122,7 @@ const CoinsTable = () => {
 
       <TableContainer>
         {loading ? (
-            <LinearProgress className={classes.LinearProgress} />
+            <LinearProgress className={classes.linearProgress} />
           ) : (
             <Table aria-label="simple table">
               <TableHead className={classes.tableHead}>
