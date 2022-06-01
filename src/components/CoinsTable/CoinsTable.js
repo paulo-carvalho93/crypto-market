@@ -86,10 +86,12 @@ const CoinsTable = () => {
 
   const fetchCoins = async () => {
     setLoading(true);
-
-    const { data } = await axios.get(CoinList(currency));
-    setCoins(data);
-
+    try {
+      const { data } = await axios.get(CoinList(currency));
+      setCoins(data);
+    } catch(err) {
+      console.log('Oops! Something went wrong!', err);
+    }
     setLoading(false);
   };
 

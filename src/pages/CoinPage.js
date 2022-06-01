@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#212121",
     // Responsive
     [theme.breakpoints.down("md")]: {
-      display: "fl;ex",
+      display: "flex",
       justifyContent: "space-around",
     },
     [theme.breakpoints.down("sm")]: {
@@ -80,10 +80,13 @@ const CoinPage = () => {
   const [coin, setCoin] = useState();
 
   const fetchCoin = async () => {
-    const { data } = await axios.get(SingleCoin(id));
-
-    setCoin(data);
-  }
+    try {
+      const { data } = await axios.get(SingleCoin(id));
+      setCoin(data);
+    } catch(err) {
+      console.log('Oops! Something went wrong!', err);
+    }
+  };
 
   useEffect(() => {
     fetchCoin();

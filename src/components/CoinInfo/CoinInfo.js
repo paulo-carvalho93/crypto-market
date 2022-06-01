@@ -44,10 +44,13 @@ const CoinInfo = ({ coin }) => {
   const { currency } = useCryptoContext();
 
   const fetchHistoricalData = async () => {
-    const { data } = await axios.get(HistoricalChart(coin.id, days, currency));
-
-    setHistoricData(data.prices);
-  }
+    try {
+      const { data } = await axios.get(HistoricalChart(coin.id, days, currency));
+      setHistoricData(data.prices);
+    } catch(err) {
+      console.log('Oops! Something went wrong!', err);
+    }
+  };
 
   useEffect(() => {
     fetchHistoricalData();
