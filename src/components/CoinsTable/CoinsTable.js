@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { 
   Container, 
   makeStyles, 
@@ -14,7 +13,6 @@ import {
   TableCell,
   TableBody
 } from '@material-ui/core';
-import { CoinList } from '../../config/api';
 import { useCryptoContext } from '../../CryptoContext';
 import { useHistory } from 'react-router-dom';
 import { numberWithCommas } from '../../utils/numberWithCommas';
@@ -77,23 +75,10 @@ const useStyles = makeStyles(() => ({
 const CoinsTable = () => {
   const classes = useStyles();
   const history = useHistory();
-  const { currency, symbol } = useCryptoContext();
+  const { currency, symbol, coins, loading, fetchCoins } = useCryptoContext();
 
-  const [loading, setLoading] = useState(false);
-  const [coins, setCoins] = useState([]);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
-
-  const fetchCoins = async () => {
-    setLoading(true);
-    try {
-      const { data } = await axios.get(CoinList(currency));
-      setCoins(data);
-    } catch(err) {
-      console.log('Oops! Something went wrong!', err);
-    }
-    setLoading(false);
-  };
 
   useEffect(() => {
     fetchCoins();
