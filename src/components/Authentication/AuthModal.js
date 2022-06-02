@@ -56,12 +56,12 @@ const AuthModal = () => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
-  const { open, user, handleVisibleModal, setAlert } = useCryptoContext();
+  const { open, handleVisibleModal, setAlert } = useCryptoContext();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   }
-  console.log('eNTREI', auth);
+
   const googleProvider = new GoogleAuthProvider();
 
   const signInWithGoogle = () => {

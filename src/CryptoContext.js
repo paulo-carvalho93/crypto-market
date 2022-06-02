@@ -1,9 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 import { CoinList } from './config/api';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase';
+import { auth, database } from './firebase';
 
 const Crypto = createContext();
 
@@ -20,6 +21,7 @@ const CryptoContext = ({ children }) => {
   const [coins, setCoins] = useState([]);
 
   const [user, setUser] = useState(null);
+  const [watchlist, setWatchlist] = useState([]);
 
   const handleVisibleModal = () => {
     setOpen(!open);
@@ -48,6 +50,26 @@ const CryptoContext = ({ children }) => {
     });
   }, []);
 
+
+  // Get data from database to check if user has already some Crypto saved in Watchlist
+  useEffect(() => {
+    if (user) {
+      const coinReference = doc(database, "watchlist", user.uid);
+
+      const unsubscribe = onSnapshot(coinReference, coin => {
+        if (coin.exists()) {
+          setWatchlist(coin.data().coins);
+        } else {
+          console.log('Oops! No items in Watchlist!');
+        }
+      });
+
+      return () => {
+        unsubscribe();
+      };
+    }
+  }, [user]);
+
   return (
     <Crypto.Provider
       value={{
@@ -60,6 +82,7 @@ const CryptoContext = ({ children }) => {
         alert,
         setAlert,
         user,
+        watchlist,
         handleVisibleModal,
         fetchCoins,
       }}

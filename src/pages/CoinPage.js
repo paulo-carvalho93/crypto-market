@@ -4,12 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
 import { useCryptoContext } from '../CryptoContext';
+import { doc, setDoc } from 'firebase/firestore';
 
-import { LinearProgress, makeStyles, Typography } from '@material-ui/core';
+import { LinearProgress, makeStyles, Typography, Button } from '@material-ui/core';
 
 import { SingleCoin } from '../config/api';
 import { numberWithCommas } from '../utils/numberWithCommas';
 import CoinInfo from '../components/CoinInfo/CoinInfo';
+import { database } from '../firebase';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -56,12 +58,13 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     color: "#212121",
     // Responsive
-    [theme.breakpoints.down("md")]: {
-      display: "flex",
-      justifyContent: "space-around",
-    },
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
+      alignItems: "center",
+    },
+    [theme.breakpoints.down("md")]: {
+      display: "flex",
+      justifyContent: "column",
       alignItems: "center",
     },
     [theme.breakpoints.down("xs")]: {
@@ -71,11 +74,15 @@ const useStyles = makeStyles((theme) => ({
   linearProgress: {
     backgroundColor: "#3f51b5",
   },
+  watchlistAddButton: {
+    width: "100%",
+    height: 40,
+  }
 }));
 
 const CoinPage = () => {
   const classes = useStyles();
-  const { currency, symbol } = useCryptoContext();
+  const { currency, symbol, user, watchlist, setAlert } = useCryptoContext();
   const { id } = useParams();
   const [coin, setCoin] = useState();
 
@@ -91,6 +98,53 @@ const CoinPage = () => {
   useEffect(() => {
     fetchCoin();
   }, []);
+
+  const inWatchlist = watchlist.includes(coin?.id);
+
+  const addToWatchlist = async () => {
+    const coinReference = doc(database, "watchlist", user.uid);
+
+    try {
+      await setDoc(coinReference, {
+        coins: watchlist ? [...watchlist, coin?.id] : [coin?.id]
+      });
+
+      setAlert({
+        open: true,
+        message: `${coin.name} added to the Watchlist !`,
+        type: "success",
+      });
+    } catch (error) {
+      setAlert({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
+    }
+  }
+
+  const removeFromWatchlist = async () => {
+    const coinReference = doc(database, "watchlist", user.uid);
+
+    try {
+      await setDoc(coinReference, 
+        { coins: watchlist.filter((watch) => watch !== coin?.id)}, 
+        { merge: "true" }
+      );
+
+      setAlert({
+        open: true,
+        message: `${coin.name} removed from the Watchlist !`,
+        type: "success",
+      });
+    } catch (error) {
+      setAlert({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
+    }
+  }
 
   if (!coin) return <LinearProgress className={classes.linearProgress} />
 
@@ -145,6 +199,18 @@ const CoinPage = () => {
               )}
             </Typography>
           </span>
+
+          {user && (
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.watchlistAddButton}
+              style={{ backgroundColor: inWatchlist ? "#db3b3b" : "#3f51b5" }}
+              onClick={inWatchlist ? removeFromWatchlist : addToWatchlist}
+            >
+              {inWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
+            </Button>
+          )}
         </div>
       </div>
 
