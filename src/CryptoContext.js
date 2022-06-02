@@ -7,6 +7,11 @@ const Crypto = createContext();
 
 const CryptoContext = ({ children }) => {
   const [loading, setLoading] = useState(false);
+  const [alert, setAlert]= useState({
+    open: false,
+    message: "",
+    type: "sucess",
+  });
   const [open, setOpen] = useState(false);
   const [currency, setCurrency] = useState("USD");
   const [symbol, setSymbol] = useState("$");
@@ -43,6 +48,8 @@ const CryptoContext = ({ children }) => {
         coins,
         loading,
         open,
+        alert,
+        setAlert,
         handleVisibleModal,
         fetchCoins,
       }}
