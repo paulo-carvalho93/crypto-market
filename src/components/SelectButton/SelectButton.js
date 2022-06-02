@@ -5,7 +5,7 @@ const SelectButton = ({ children, selected, onClick }) => {
   const useStyles = makeStyles(() => ({
     selectButton: {
       width: "22%",
-      border: "2px solid #0052ff",
+      border: "2px solid #3f51b5",
       borderRadius: 5,
       padding: 10,
       paddingLeft: 20,
@@ -13,11 +13,11 @@ const SelectButton = ({ children, selected, onClick }) => {
       fontFamily: "Roboto",
       fontWeight: selected ? 700 : 400,
       cursor: "pointer",
-      backgroundColor: selected ? "#0052ff" : "",
+      backgroundColor: selected ? "#3f51b5" : "",
       color: selected ? "white" : "black",
       transition: "0.3s",
       "&:hover" : {
-        backgroundColor: "#0052ff",
+        backgroundColor: "#3f51b5",
         color: "white",
         opacity: 1,
       },

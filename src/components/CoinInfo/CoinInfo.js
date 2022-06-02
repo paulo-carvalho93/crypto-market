@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   circularProgress: {
-    color: "#0052ff", 
+    color: "#3f51b5", 
   },
   buttonContainer: {
     display: "flex",
@@ -78,7 +78,7 @@ const CoinInfo = ({ coin }) => {
               datasets: [{
                 data: historicData.map((coin) => coin[1]),
                 label: `Price ( Past ${days} Days) in ${currency}`,
-                borderColor: "#0052ff",
+                borderColor: "#3f51b5",
               }]
             }}
             options={{

@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
   title: {
     fontFamily: "Roboto",
     fontWeight: "bold",
-    color: "#0052ff",
+    color: "#3f51b5",
     margin: 18,
   },
   search: {
@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: 20,
   },
   linearProgress: {
-    backgroundColor: "#0052ff",
+    backgroundColor: "#3f51b5",
   },
   tableHead: {
     backgroundColor: "#f1f4f7",
@@ -41,7 +41,7 @@ const useStyles = makeStyles(() => ({
   tableCell: {
     fontFamily: "Roboto",
     fontWeight: "bold",
-    color: "#0052ff"
+    color: "#3f51b5"
   },
   tableRowCoin: {
     backgroundColor: "#FFF",

@@ -6,10 +6,13 @@ import { CoinList } from './config/api';
 const Crypto = createContext();
 
 const CryptoContext = ({ children }) => {
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   const [currency, setCurrency] = useState("USD");
   const [symbol, setSymbol] = useState("$");
-  const [loading, setLoading] = useState(false);
   const [coins, setCoins] = useState([]);
+
+  const [user, setUser] = useState(null);
 
   const fetchCoins = async () => {
     setLoading(true);
@@ -27,6 +30,10 @@ const CryptoContext = ({ children }) => {
     else if (currency === "BRL") setSymbol("R$");
   }, [currency]);
 
+  const handleVisibleModal = () => {
+    setOpen(!open);
+  };
+
   return (
     <Crypto.Provider
       value={{
@@ -35,6 +42,8 @@ const CryptoContext = ({ children }) => {
         symbol,
         coins,
         loading,
+        open,
+        handleVisibleModal,
         fetchCoins,
       }}
     >

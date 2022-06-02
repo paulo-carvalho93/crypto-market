@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Roboto",
     fontWeight: "bold",
     marginBottom: 20,
-    color: "#0052ff",
+    color: "#3f51b5",
   },
   description: {
     width: "100%",
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   linearProgress: {
-    backgroundColor: "#0052ff",
+    backgroundColor: "#3f51b5",
   },
 }));
 

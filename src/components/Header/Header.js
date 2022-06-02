@@ -10,11 +10,12 @@ import {
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useCryptoContext } from '../../CryptoContext';
+import AuthModal from '../Authentication/AuthModal';
 
 const useStyles = makeStyles(() => ({
   title: {
     flex: 1,
-    color: "#0052ff",
+    color: "#3f51b5",
     fontFamily: "Roboto",
     fontWeight: "bold",
     cursor: "pointer",
@@ -52,6 +53,7 @@ const Header = () => {
             <MenuItem value="USD">USD</MenuItem>
             <MenuItem value="BRL">BRL</MenuItem>
           </Select>
+          <AuthModal />
         </Toolbar>
       </Container>
     </AppBar>
