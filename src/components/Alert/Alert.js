@@ -2,13 +2,15 @@ import React from 'react';
 import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 
-import CryptoContext from '../../CryptoContext';
+import { useCryptoContext } from '../../CryptoContext';
 
 const Alert = () => {
-  const { alert, setAlert } = CryptoContext();
+  const { alert, setAlert } = useCryptoContext();
 
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") return;
+    if (reason === "clickaway") {
+      return;
+    }
 
     setAlert({ open: false });
   }
@@ -16,7 +18,7 @@ const Alert = () => {
   return (
     <Snackbar
       open={alert.open}
-      autoHideDuration={3000}
+      autoHideDuration={2000}
       onClose={handleClose}
     >
       <MuiAlert

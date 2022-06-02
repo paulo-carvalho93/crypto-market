@@ -7,6 +7,7 @@ import './App.css';
 import Header from './components/Header/Header';
 import CoinPage from './pages/CoinPage';
 import Homepage from './pages/Homepage';
+import Alert from './components/Alert/Alert';
 
 function App() {
   const useStyles = makeStyles(() => ({
@@ -23,6 +24,7 @@ function App() {
     <BrowserRouter>
       <div className={classes.App}>
         <Header />
+        <Alert />
         <Route path="/" component={Homepage} exact />
         <Route path="/coins/:id" component={CoinPage} />
       </div>
