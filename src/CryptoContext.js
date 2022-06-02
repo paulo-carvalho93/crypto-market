@@ -2,6 +2,8 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
 import { CoinList } from './config/api';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase';
 
 const Crypto = createContext();
 
@@ -19,6 +21,10 @@ const CryptoContext = ({ children }) => {
 
   const [user, setUser] = useState(null);
 
+  const handleVisibleModal = () => {
+    setOpen(!open);
+  };
+
   const fetchCoins = async () => {
     setLoading(true);
     try {
@@ -35,9 +41,12 @@ const CryptoContext = ({ children }) => {
     else if (currency === "BRL") setSymbol("R$");
   }, [currency]);
 
-  const handleVisibleModal = () => {
-    setOpen(!open);
-  };
+  useEffect(() => {
+    onAuthStateChanged(auth,  user => {
+      if (user) setUser(user);
+      else setUser(null);
+    });
+  }, []);
 
   return (
     <Crypto.Provider
@@ -50,6 +59,7 @@ const CryptoContext = ({ children }) => {
         open,
         alert,
         setAlert,
+        user,
         handleVisibleModal,
         fetchCoins,
       }}

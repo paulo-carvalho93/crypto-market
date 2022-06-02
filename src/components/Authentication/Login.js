@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { Box, Button, makeStyles, TextField } from '@material-ui/core';
 
+import { auth } from '../../firebase';
 import { useCryptoContext } from '../../CryptoContext';
 
 const useStyles = makeStyles(() => ({
@@ -13,12 +15,45 @@ const useStyles = makeStyles(() => ({
 
 const Login = () => {
   const classes = useStyles();
-  const { handleVisibleModal } = useCryptoContext();
+  const { handleVisibleModal, setAlert } = useCryptoContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = () => {
+  const validateEmailOrPassword = () => {
+    if (!email || !password) {
+      setAlert({
+        open: true,
+        message: "Please fill all the Fields",
+        type: "error",
+      });
+      return;
+    }
+  }
 
+  const handleSubmit = async () => {
+    validateEmailOrPassword();
+
+    try {
+      const result = await signInWithEmailAndPassword(
+        auth, 
+        email, 
+        password
+      );
+
+      setAlert({
+        open: true,
+        message: `Login sucessfully! Welcome ${result.user.email}`,
+        type: "success",
+      });
+
+      handleVisibleModal();
+    } catch (error) {
+      setAlert({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
+    }
   };
 
   return (

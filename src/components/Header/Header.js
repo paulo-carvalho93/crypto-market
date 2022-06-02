@@ -31,7 +31,7 @@ const Header = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const { currency, setCurrency } = useCryptoContext();
+  const { currency, setCurrency, user } = useCryptoContext();
 
   return (
     <AppBar color='transparent' position='static'>
@@ -53,7 +53,7 @@ const Header = () => {
             <MenuItem value="USD">USD</MenuItem>
             <MenuItem value="BRL">BRL</MenuItem>
           </Select>
-          <AuthModal />
+          { user ? "Logout" : <AuthModal />}
         </Toolbar>
       </Container>
     </AppBar>
