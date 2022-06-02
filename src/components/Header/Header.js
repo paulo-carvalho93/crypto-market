@@ -11,6 +11,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import { useCryptoContext } from '../../CryptoContext';
 import AuthModal from '../Authentication/AuthModal';
+import UserSidebar from '../UserSidebar/UserSidebar';
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -53,7 +54,7 @@ const Header = () => {
             <MenuItem value="USD">USD</MenuItem>
             <MenuItem value="BRL">BRL</MenuItem>
           </Select>
-          { user ? "Logout" : <AuthModal />}
+          { user ? <UserSidebar /> : <AuthModal />}
         </Toolbar>
       </Container>
     </AppBar>

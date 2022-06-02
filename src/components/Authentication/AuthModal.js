@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function AuthModal() {
+const AuthModal = () => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
@@ -83,3 +83,5 @@ export default function AuthModal() {
     </div>
   );
 }
+
+export default AuthModal;
