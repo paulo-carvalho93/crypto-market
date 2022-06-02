@@ -4,6 +4,8 @@ import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import { useCryptoContext } from '../../CryptoContext';
 import { Avatar } from '@material-ui/core';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../firebase';
 
 const useStyles = makeStyles({
   container: {
@@ -68,7 +70,7 @@ const useStyles = makeStyles({
 
 const UserSidebar = () => {
   const classes = useStyles();
-  const { user } = useCryptoContext();
+  const { user, setAlert} = useCryptoContext();
   const [positionDrawer, setPositionDrawer] = useState({
     right: false,
   });
@@ -80,7 +82,15 @@ const UserSidebar = () => {
     setPositionDrawer({ ...positionDrawer, [anchor]: open });
   };
 
-  const logOut = () => {};
+  const logOut = () => {
+    signOut(auth);
+    setAlert({
+      open: true,
+      message: "Successful Logout !",
+      type: "success",
+    });
+    toggleDrawer();
+  };
 
   return (
     <div>

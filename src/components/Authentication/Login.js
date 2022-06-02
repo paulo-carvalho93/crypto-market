@@ -42,7 +42,7 @@ const Login = () => {
 
       setAlert({
         open: true,
-        message: `Login sucessfully! Welcome ${result.user.email}`,
+        message: `Successful Login! Welcome ${result.user.email}`,
         type: "success",
       });
 
