@@ -42,7 +42,7 @@ const Login = () => {
 
       setAlert({
         open: true,
-        message: `Successful Login! Welcome ${result.user.email}`,
+        message: `Login Successful ! Welcome ${result.user.email}`,
         type: "success",
       });
 
@@ -61,7 +61,8 @@ const Login = () => {
       <TextField 
         variant="outlined"
         type="email"
-        label="Enter Email"
+        label="Email"
+        placeholder="Enter Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         fullWidth
@@ -69,7 +70,8 @@ const Login = () => {
       <TextField 
         variant="outlined"
         type="password"
-        label="Enter Password"
+        label="Password"
+        placeholder="Enter Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         fullWidth

@@ -86,7 +86,7 @@ const UserSidebar = () => {
     signOut(auth);
     setAlert({
       open: true,
-      message: "Successful Logout !",
+      message: "Logout Successful !",
       type: "success",
     });
     toggleDrawer();

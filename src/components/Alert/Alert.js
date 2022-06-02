@@ -18,7 +18,7 @@ const Alert = () => {
   return (
     <Snackbar
       open={alert.open}
-      autoHideDuration={2000}
+      autoHideDuration={4000}
       onClose={handleClose}
     >
       <MuiAlert

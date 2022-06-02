@@ -1,9 +1,22 @@
 import React, { useState } from 'react';
 import { useCryptoContext } from '../../CryptoContext';
 import { makeStyles } from '@material-ui/core/styles';
-import { Modal, Backdrop, Fade, Button, AppBar, Tabs, Tab } from '@material-ui/core';
+import { 
+  CircularProgress, 
+  Modal, 
+  Backdrop, 
+  Fade, 
+  Button, 
+  AppBar, 
+  Tabs, 
+  Tab, 
+  Box,
+} from '@material-ui/core';
 import Login from './Login';
 import Signup from './Signup';
+import GoogleButton from 'react-google-button';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth } from '../../firebase';
 
 const useStyles = makeStyles((theme) => ({
   loginButton: {
@@ -27,6 +40,15 @@ const useStyles = makeStyles((theme) => ({
   },
   tabs: {
     borderRadius: 10,
+  },
+  googleAuth: {
+    display: "flex",
+    flexDirection: "column",
+    fotSize: 20,
+    textAlign: "center",
+    gap: 20,
+    padding: 24,
+    paddingTop: 0,
   }
 }));
 
@@ -34,11 +56,32 @@ const AuthModal = () => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
-  const { open, handleVisibleModal } = useCryptoContext();
+  const { open, user, handleVisibleModal, setAlert } = useCryptoContext();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   }
+  console.log('eNTREI', auth);
+  const googleProvider = new GoogleAuthProvider();
+
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, googleProvider)
+    .then(res => {
+      setAlert({
+        open: true,
+        message: `Sign up Successfull. Welcome ${res.user.email}`,
+        type: "success",
+      });
+
+      handleVisibleModal();
+    }).catch((error) => {
+      setAlert({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
+    });
+  };
 
   return (
     <div>
@@ -48,7 +91,7 @@ const AuthModal = () => {
         className={classes.loginButton}
         onClick={handleVisibleModal}
       >
-        Login
+        {auth.currentUser === null ? "Login" : <CircularProgress size={20} color="#3f51b5" />}
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -75,8 +118,18 @@ const AuthModal = () => {
                 <Tab label="Sign up" />
               </Tabs>
             </AppBar>
+
             {value === 0 && <Login />}
             {value === 1 && <Signup />}
+
+            <Box className={classes.googleAuth}>
+              <span style={{ color: "#182c9c" }}>OR</span>
+              <GoogleButton
+                style={{ width: "100%", outline: "none"}}
+                onClick={signInWithGoogle}
+              />
+            </Box>
+
           </div>
         </Fade>
       </Modal>

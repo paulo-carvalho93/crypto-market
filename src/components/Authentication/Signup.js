@@ -62,7 +62,8 @@ const Signup = () => {
       <TextField 
         variant="outlined"
         type="email"
-        label="Enter Email"
+        label="Email"
+        placeholder="Enter Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         fullWidth
@@ -70,7 +71,8 @@ const Signup = () => {
       <TextField 
         variant="outlined"
         type="password"
-        label="Enter Password"
+        label="Password"
+        placeholder="Enter Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         fullWidth
@@ -79,6 +81,7 @@ const Signup = () => {
         variant="outlined"
         type="password"
         label="Confirm Password"
+        placeholder="Confirm Password"
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
         fullWidth
