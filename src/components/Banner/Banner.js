@@ -6,7 +6,7 @@ const useStyles = makeStyles(() => ({
   banner: {
     backgroundImage: "url(./banner.jpg)",
     backgroundSize: "cover",
-    backgroundRepeat: "no-repeat"
+    backgroundRepeat: "no-repeat",
   },
   bannerContent: {
     display: "flex",

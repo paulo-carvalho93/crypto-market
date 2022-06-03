@@ -66,6 +66,7 @@ const Login = () => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         fullWidth
+        autoComplete='off'
       />
       <TextField 
         variant="outlined"
@@ -75,6 +76,7 @@ const Login = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         fullWidth
+        autoComplete="new-password"
       />
 
       <Button

@@ -56,6 +56,8 @@ const CoinInfo = ({ coin }) => {
     fetchHistoricalData();
   }, [currency, days]);
 
+  console.count("Re-render");
+
   return (
     <div className={classes.container}>
       {!historicData ? (
