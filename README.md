@@ -14,8 +14,12 @@ The idea of this mini project is to boost my abilities with React.js, ChartJS, M
 <p align="center">
   <img alt="screenshot" width="650px" src="./.github/assets/crypto_market.gif" />
 <p>
-
 </div>
+
+## Live Demo
+
+**Access:** [Crypto Market](https://crypto-market-pink.vercel.app/)
+
 
 ## Summary
 
